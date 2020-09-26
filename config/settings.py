@@ -1,6 +1,9 @@
 import os
 
+import environ  
 
+env = environ.Env()  
+env.read_env('.env')  
 ###############
 # Build paths #
 ###############
@@ -13,9 +16,9 @@ PROJECT_NAME = os.path.basename(BASE_DIR)
 # Security settings #
 #####################
 
-SECRET_KEY = '<fake-secret-key>'
+SECRET_KEY = env.get_value('SECRET_KEY')
 
-DEBUG = True
+DEBUG = env.get_value('DEBUG', default=0) 
 
 ALLOWED_HOSTS = ['*']
 
@@ -32,10 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.humanize', # 数値を3桁区切りで表示
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'debug_toolbar',
     'accounts.apps.AccountsConfig',
+    'moneybelieve.apps.MoneybelieveConfig',
 ]
 
 MIDDLEWARE = [
@@ -46,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -200,3 +207,15 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 ##################
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#################
+# Debug ToolBar #
+#################
+# https://wonderwall.hatenablog.com/entry/2018/03/13/233000
+INTERNAL_IPS = ['127.0.0.1']
+
+############
+# FMP API  #
+############
+
+APIKEY = env.get_value('APIKEY')

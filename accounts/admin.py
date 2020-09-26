@@ -7,7 +7,6 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import CustomUser
 
-
 class CustomUserCreationForm(forms.ModelForm):
     class Meta:
         model = CustomUser

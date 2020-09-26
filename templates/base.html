@@ -1,14 +1,28 @@
+{% load static %}
 <!doctype html>
 <html lang="ja">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>{% block title %}{% endblock %}</title>
 
+  <!-- ========custom.cssのリンクを追加======== -->
+  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+  <!-- datatablesのための追加 開始 -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" />
+  <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+  <!-- datatablesのための追加 終了 -->
+
+  <!-- Chart.jsのための追加 開始 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+  <!-- Chart.jsのための追加 終了 -->
+
   {# --- css --- #}
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <style type="text/css">
     body {
       padding-top: 5rem;
@@ -16,21 +30,60 @@
   </style>
   {% block extra_css %}{% endblock %}
 </head>
-<body>
-<main class="container">
-  {% block content %}{% endblock %}
-</main>
 
-{# --- js --- #}
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-{% block extra_js %}{% endblock %}
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="">MoneyBelieve</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <!-- どのユーザでもログインしていない場合 -->
+        {% if user.id is None %}
+        <li class="nav-item active"><a class="nav-link" href="{% url 'account_signup' %}">Sing Up</a></li>
+        <li class="nav-item active"><a class="nav-link" href="{% url 'account_login' %}">Login</a></li>
+        <!-- SuperUser権限でログインしている場合 -->
+        {% elif user.is_superuser %}
+        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:index' %}">Top</a></li>
+        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:new' %}">New</a></li>
+        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:portfolio_list' %}">ポートフォリオ</a></li>
+        <li class="nav-item active"><a class="nav-link" href="{% url 'account_logout' %}">Logout</a></li>
+        {% else %}
+        <!-- 普通ユーザ権限でログインしている場合 -->
+        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:index' %}">Top</a></li>
+        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:new' %}">New by Normal</a></li>
+        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:portfolio_list' %}">ポートフォリオ</a></li>
+        <li class="nav-item active"><a class="nav-link" href="{% url 'account_logout' %}">Logout</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+
+
+
+
+
+  {# --- js --- #}
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  {% block extra_js %}{% endblock %}
 </body>
+
 </html>

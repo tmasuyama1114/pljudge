@@ -1,2 +1,4 @@
-Django==2.2.5
+Django==2.2.14
 django-allauth==0.40.0
+django-environ
+django-debug-toolbar

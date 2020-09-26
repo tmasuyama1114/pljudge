@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>{{ portfolio_list.investor }} のリスト一覧</h1>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Rating</th>
+        <th>RatingScore</th>
+        <th>RatingRecommendation</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for portfolio in portfolio_list %}
+      <tr>
+        <td>{{ portfolio.ticker }}</td>
+        <td>{{ portfolio.company_name }}</td>
+        <td>{{ portfolio.rating }}</td>
+        <td>{{ portfolio.rating_score }}</td>
+        <td>{{ portfolio.rating_recommendation }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+{% endblock %}

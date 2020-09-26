@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>Your object and Rating</h1>
+
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Rating</th>
+        <th>RatingScore</th>
+        <th>RatingRecommendation</th>
+        <th></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ object.ticker }}</td>
+        <td>{{ object.company_name }}</td>
+        <td>{{ object.rating }}</td>
+        <td>{{ object.rating_score }}</td>
+        <td>{{ object.rating_recommendation }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+{% endblock %}

@@ -12,9 +12,9 @@ from django.urls import reverse
 from .forms import PortfolioForm
 from .models import Portfolio
 
-class New(CreateView): # PortFolio 登録画面
+class PortfolioCreate(CreateView): # PortFolio 登録画面
     # 使うためテンプレートの指定
-    template_name = 'moneybelieve/new.html'
+    template_name = 'moneybelieve/portfolio_create.html'
     # 使うformクラスの指定
     form_class = PortfolioForm
     # 成功時に飛ぶURLの指定
@@ -23,13 +23,13 @@ class New(CreateView): # PortFolio 登録画面
     # 入力に問題がない場合現在ログインしているアカウントを投稿者として登録するための処理
     def form_valid(self, form):
         form.instance.investor_id = self.request.user.id
-        return super(New, self).form_valid(form) # 入力内容のチェック付き
+        return super(PortfolioCreate, self).form_valid(form) # 入力内容のチェック付き
 
 class PortfolioUpdate(UpdateView):
     # https://noumenon-th.net/programming/2019/11/19/django-updateview/
     template_name = 'moneybelieve/portfolio_update.html'
     model = Portfolio
-    fields = ['ticker']
+    fields = ['ticker', 'unit', 'avg_price', 'upper_price', 'lower_price']
 
     def get_success_url(self):
         return reverse('moneybelieve:portfolio_list')
@@ -67,5 +67,8 @@ class PortfolioListView(LoginRequiredMixin, ListView):
     template_name = "moneybelive/portfolio_list.html"
     
     def get_queryset(self):
+        # https://qiita.com/uenosy/items/54136aff0f6373957d22
         id = self.request.user.id
         return Portfolio.objects.filter(investor_id=id)
+
+# 購入したいと思っているラインや、損切りしようと思っているラインがわかればいいんじゃない？

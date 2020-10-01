@@ -2,28 +2,59 @@
 
 {% block content %}
 <div class="container">
-  <h1>Your Portfolio and Rating</h1>
+  <h1>Your Portfolio</h1>
 
   <table class="table table-hover">
     <thead class="thead-light">
       <tr>
         <th>Ticker</th>
         <th>Name</th>
+        <th>保有数量</th>
+        <th>現在価格</th>
+        <th>平均取得単価</th>
+        <th>利確ライン</th>
+        <th>損切りライン</th>
+        <th>損益</th>
+        <th>利確判断</th>
         <th></th>
         <th></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
+      <!-- ポートフォリオごとに損益を表示させる部分　ここから-->
       {% for portfolio in portfolio_list %}
       <tr>
         <td>{{ portfolio.ticker }}</td>
         <td>{{ portfolio.company_name }}</td>
+        <td>{{ portfolio.unit }}</td>
+        <td>{{ portfolio.price }}</td>
+        <td>{{ portfolio.avg_price }}</td>
+        <td>{{ portfolio.upper_price }}</td>
+        <td>{{ portfolio.lower_price }}</td>
+        <td>$ {{ portfolio.profit_or_loss }}</td>
+        <td>
+          {% if portfolio.fix_profit %}
+            利確タイミング (+${{ portfolio.fix_profit }})
+          {% elif portfolio.fix_loss %}
+            損切りタイミング -${{ portfolio.fix_loss }}
+          {% endif %}
+        </td>
         <th><a href="{% url 'moneybelieve:portfolio_detail' portfolio.pk %}">詳細</a></th>
         <th><a href="{% url 'moneybelieve:portfolio_update' portfolio.pk %}">編集</a></th>
         <th><a href="{% url 'moneybelieve:portfolio_delete' portfolio.pk %}">削除</a></th>
       </tr>
       {% endfor %}
+      <!-- ポートフォリオごとに損益を表示させる部分　ここまで-->
+
+      <!-- 利確ラインに達しているもの　ここから -->
+      <!-- 利確ラインに達しているもの　ここまで -->
+
+      <!-- 損切りラインに達しているもの　ここから -->
+      <!-- 損切り
+        
+        
+        ラインに達しているもの　ここまで -->
     </tbody>
   </table>
 

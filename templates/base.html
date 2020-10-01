@@ -45,16 +45,10 @@
         {% if user.id is None %}
         <li class="nav-item active"><a class="nav-link" href="{% url 'account_signup' %}">Sing Up</a></li>
         <li class="nav-item active"><a class="nav-link" href="{% url 'account_login' %}">Login</a></li>
-        <!-- SuperUser権限でログインしている場合 -->
-        {% elif user.is_superuser %}
-        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:index' %}">Top</a></li>
-        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:new' %}">New</a></li>
-        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:portfolio_list' %}">ポートフォリオ</a></li>
-        <li class="nav-item active"><a class="nav-link" href="{% url 'account_logout' %}">Logout</a></li>
+        <!-- 何らかのユーザでログインしている場合 -->
         {% else %}
-        <!-- 普通ユーザ権限でログインしている場合 -->
         <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:index' %}">Top</a></li>
-        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:new' %}">New by Normal</a></li>
+        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:portfolio_create' %}">ポートフォリオ登録</a></li>
         <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:portfolio_list' %}">ポートフォリオ</a></li>
         <li class="nav-item active"><a class="nav-link" href="{% url 'account_logout' %}">Logout</a></li>
         {% endif %}

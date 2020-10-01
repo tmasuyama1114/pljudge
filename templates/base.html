@@ -4,57 +4,68 @@
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>{% block title %}{% endblock %}</title>
+  <title>MoneyBelieve - Manage your Profit and Loss</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
 
-  <!-- ========custom.cssのリンクを追加======== -->
-  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
-  <!-- datatablesのための追加 開始 -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" />
-  <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
-  <!-- datatablesのための追加 終了 -->
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
+    rel="stylesheet">
 
-  <!-- Chart.jsのための追加 開始 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-  <!-- Chart.jsのための追加 終了 -->
+  <!-- Bootstrap CSS File -->
+  <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-  {# --- css --- #}
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <style type="text/css">
-    body {
-      padding-top: 5rem;
-    }
-  </style>
-  {% block extra_css %}{% endblock %}
+  <!-- Libraries CSS Files -->
+  <link href="{% static 'lib/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+    Template Name: FLATTY
+    Template URL: https://templatemag.com/FLATTY-bootstrap-app-landing-page-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
 </head>
 
-<body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="">MoneyBelieve</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <!-- どのユーザでもログインしていない場合 -->
-        {% if user.id is None %}
-        <li class="nav-item active"><a class="nav-link" href="{% url 'account_signup' %}">Sing Up</a></li>
-        <li class="nav-item active"><a class="nav-link" href="{% url 'account_login' %}">Login</a></li>
-        <!-- 何らかのユーザでログインしている場合 -->
-        {% else %}
-        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:index' %}">Top</a></li>
-        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:portfolio_create' %}">ポートフォリオ登録</a></li>
-        <li class="nav-item active"><a class="nav-link" href="{% url 'moneybelieve:portfolio_list' %}">ポートフォリオ</a></li>
-        <li class="nav-item active"><a class="nav-link" href="{% url 'account_logout' %}">Logout</a></li>
-        {% endif %}
-      </ul>
+<body>
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><b>MoneyBelieve</b></a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <!-- どのユーザでもログインしていない場合 -->
+          {% if user.id is None %}
+          <li><a href="{% url 'moneybelieve:index' %}" class="smoothscroll">Top</a></li>
+          <li><a href="{% url 'account_signup' %}" class="smoothscroll">Sing Up</a></li>
+          <li><a href="{% url 'account_login' %}" class="smoothscroll">Login</a></li>
+          <!-- 何らかのユーザでログインしている場合 -->
+          {% else %}
+          <li><a href="{% url 'moneybelieve:index' %}" class="smoothscroll">Top</a></li>
+          <li><a href="{% url 'moneybelieve:portfolio_create' %}" class="smoothscroll">銘柄登録</a></li>
+          <li><a href="{% url 'moneybelieve:portfolio_list' %}" class="smoothscroll">ポートフォリオ</a></li>
+          <li><a href="{% url 'account_logout' %}" class="smoothscroll">Logout</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
     </div>
-  </nav>
+  </div>
 
   <main>
     <div class="container">

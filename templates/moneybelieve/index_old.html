@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- timeline section-->
+登録されているポートフォリオ一覧
+<section>
+  <!-- もし投稿があれば一覧を表示する -->
+  {% if portfolio_list %}
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <!-- <th>#</th> -->
+        <th>Ticker</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for portfolio in portfolio_list %}
+      <tr>
+        <!-- <th scope="row">1</th> -->
+        <td>{{ portfolio.ticker }}</td>
+        <td>Empty</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</section>
+
+<!-- ここにJSスクリプトを書いていく -->
+<script>
+
+</script>
+{% endblock content %}

@@ -12,6 +12,41 @@ from django.urls import reverse
 from .forms import PortfolioForm
 from .models import Portfolio
 
+#########################################
+# FMP から API で各会社の情報を取得する処理  #
+#########################################
+
+import json
+from urllib.request import urlopen
+from django.conf import settings
+apikey = getattr(settings, "APIKEY", None) # FMP の API　キー
+
+def get_jsonparsed_data(url): # API にアクセスしてレスポンスを得るための関数
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return json.loads(data)
+
+def get_company_name(ticker):  # ticker から companyName を得るための関数
+    # https://www.financialmodelingprep.com/developer/docs/companies-key-stats-free-api/
+    url = ("https://financialmodelingprep.com/api/v3/profile/" + ticker + "?apikey=" + apikey)
+    return get_jsonparsed_data(url)[0]['companyName']
+
+def get_price(ticker):  # ticker から 現在価格 を得るための関数
+    # https://www.financialmodelingprep.com/developer/docs/companies-key-stats-free-api/
+    url = ("https://financialmodelingprep.com/api/v3/profile/" + ticker + "?apikey=" + apikey)
+    return get_jsonparsed_data(url)[0]['price']
+
+##############
+# トップページ #
+##############
+
+class Index(TemplateView):
+    template_name = 'moneybelieve/index.html'
+
+#######################################
+# ユーザが登録するポートフォリオに関する処理 #
+#######################################
+
 class PortfolioCreate(CreateView): # PortFolio 登録画面
     # 使うためテンプレートの指定
     template_name = 'moneybelieve/portfolio_create.html'
@@ -41,27 +76,6 @@ class PortfolioUpdate(UpdateView):
         form.fields['ticker'].label = 'ticker'
         return form
 
-class PortfolioDetail(DetailView):
-    model = Portfolio
-    template_name = "moneybelieve/portfolio_detail.html"
-
-class PortfolioDelete(DeleteView):
-    # https://noumenon-th.net/programming/2019/11/20/django-deleteview/
-    model = Portfolio
-    template_name = "moneybelieve/portfolio_delete.html"
-    success_url = reverse_lazy('moneybelieve:portfolio_list')
-
-# 投稿一覧
-class Index(ListView):
-    model = Portfolio
-    template_name = 'moneybelieve/index.html'
-    #  最大表示件数を設定しています 今回は100件
-    paginate_by = 100
-    # データを取得するときに行う処理を記述できる今回は投稿日を降順で並べる様にした
-    queryset = Portfolio.objects.order_by('ticker').reverse() # Template 側で "object_list" という名前で取り出せるようになる
-
-# ユーザーの Portfolio 一覧
-
 class PortfolioListView(LoginRequiredMixin, ListView):
     model = Portfolio
     template_name = "moneybelive/portfolio_list.html"
@@ -69,6 +83,11 @@ class PortfolioListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         # https://qiita.com/uenosy/items/54136aff0f6373957d22
         id = self.request.user.id
+        portfolio = Portfolio.objects.filter(investor_id=id)
         return Portfolio.objects.filter(investor_id=id)
 
-# 購入したいと思っているラインや、損切りしようと思っているラインがわかればいいんじゃない？
+class PortfolioDelete(DeleteView):
+    # https://noumenon-th.net/programming/2019/11/20/django-deleteview/
+    model = Portfolio
+    template_name = "moneybelieve/portfolio_delete.html"
+    success_url = reverse_lazy('moneybelieve:portfolio_list')

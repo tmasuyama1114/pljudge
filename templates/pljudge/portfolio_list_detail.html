@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>Your Portfolio</h1>
+
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Ticker</th>
+        <th>会社名</th>
+        <th>数量</th>
+        <th>現在価格</th>
+        <th>取得単価</th>
+        <th>利確ライン</th>
+        <th>損切ライン</th>
+        <th>損益</th>
+        <th>Judge</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- ポートフォリオごとに損益を表示させる部分　ここから-->
+      {% for portfolio in portfolio_list %}
+      <tr>
+        <td>{{ portfolio.ticker }}</td>
+        <td>{{ portfolio.company_name }}</td>
+        <td>{{ portfolio.unit }}</td>
+        <td>{{ portfolio.price }}</td>
+        <td>{{ portfolio.avg_price }}　</td>
+        <td>{{ portfolio.upper_price }}　</td>
+        <td>{{ portfolio.lower_price }}　</td>
+        <td>{{ portfolio.profit_or_loss }}　</td>
+        <td>
+          {% if portfolio.fix_profit %}
+            利確
+          {% elif portfolio.fix_loss %}
+            損切り
+          {% endif %}
+        </td>
+        <th><a href="{% url 'pljudge:portfolio_update' portfolio.pk %}">編集</a></th>
+        <th><a href="{% url 'pljudge:portfolio_delete' portfolio.pk %}">削除</a></th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+{% endblock %}

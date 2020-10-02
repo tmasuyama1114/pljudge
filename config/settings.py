@@ -1,6 +1,9 @@
 import os
 
+import environ  
 
+env = environ.Env()  
+env.read_env('.env')  
 ###############
 # Build paths #
 ###############
@@ -13,9 +16,9 @@ PROJECT_NAME = os.path.basename(BASE_DIR)
 # Security settings #
 #####################
 
-SECRET_KEY = '<fake-secret-key>'
+SECRET_KEY = env.get_value('SECRET_KEY')
 
-DEBUG = True
+DEBUG = env.get_value('DEBUG', default=0) 
 
 ALLOWED_HOSTS = ['*']
 
@@ -31,7 +34,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'accounts.apps.AccountsConfig',
+=======
+    'django.contrib.sites',
+    'django.contrib.humanize', # 数値を3桁区切りで表示
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'debug_toolbar',
+    'accounts.apps.AccountsConfig',
+    'pljudge.apps.pljudgeConfig',
+>>>>>>> tmp
 ]
 
 MIDDLEWARE = [
@@ -42,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -174,8 +189,26 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+<<<<<<< HEAD
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+=======
+# 認証方式を「メールアドレスとパスワード」に変更
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ユーザー名は使用しない
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+# ユーザー登録確認メールは送信しない
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+# メールアドレスを必須項目にする
+ACCOUNT_EMAIL_REQUIRED = True
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+>>>>>>> tmp
 
 
 ##################
@@ -183,3 +216,15 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 ##################
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#################
+# Debug ToolBar #
+#################
+# https://wonderwall.hatenablog.com/entry/2018/03/13/233000
+INTERNAL_IPS = ['127.0.0.1']
+
+############
+# FMP API  #
+############
+
+APIKEY = env.get_value('APIKEY')

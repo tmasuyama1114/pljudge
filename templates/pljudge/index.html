@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<body>
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">PL judge</h1>
+      <br>
+      <p class="lead text-muted">利確・損切りタイミングの見極めに</p>
+      <p>
+        <a href="{% url 'account_signup' %}" class="btn btn-primary my-2">ユーザ登録</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row mt centered">
+      <div class="col-lg-6 col-lg-offset-3">
+        <h2>保有銘柄の利確・損切りライン<br/>もっと簡単に管理しませんか？</h2>
+        <h4>PL judge = Profit and Loss Jugde</h4>
+      </div>
+    </div>
+    <!-- /row -->
+
+    <div class="row mt centered">
+      <div class="col-lg-4">
+        <i class="fa fa-sticky-note fa-5x" aria-hidden="true"></i>
+        <h4>1 - ポートフォリオの管理</h4>
+        <p>保有銘柄の取得単価や数量、現在値を<br>
+        あなた専用にカスタマイズ一覧で確認可能です</p>
+      </div>
+      <!--/col-lg-4 -->
+
+      <div class="col-lg-4">
+        <i class="fa fa-edit fa-5x" aria-hidden="true"></i>
+        <h4>2 - 利確・損切りラインのメモに</h4>
+        <p>保有銘柄の利確・損切りラインを<br>
+        メモとして管理することができます</p>
+
+      </div>
+      <!--/col-lg-4 -->
+
+      <div class="col-lg-4">
+        <i class="fa fa-gavel fa-5x" aria-hidden="true"></i>
+        <h4>3 - 売却タイミングの判断</h4>
+        <p>現在値と利確・損切りラインを比較して<br>
+        売却タイミングを逃さないようにします</p>
+
+      </div>
+      <!--/col-lg-4 -->
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+
+  <div class="container">
+    <div class="row mt centered">
+      <div class="col-lg-6 col-lg-offset-3">
+        <h1>ポートフォリオ管理を容易に</h1>
+        <h4>ユーザ登録をして保有銘柄を登録すると<br>
+        売買タイミングに感情を入れずに<br>
+        機械的に利確・損切りを行うことができます</h4>
+      </div>
+    </div>
+    <!-- /row -->
+
+    <hr>
+    <div class="row mt centered">
+      <div class="col-lg-4">
+        <img class="img-thumbnail" src="{% static 'img/pic1.png' %}" width="200" alt="">
+        <h4>1 - Ticker、数量、取得単価から<br>ポートフォリオを管理</h4>
+      </div>
+    
+      <div class="col-lg-4">
+        <img class="img-thumbnail" src="{% static 'img/pic2.png' %}" width="200" alt="">
+        <h4>2 - 利確・損益ラインを<br>メモとして管理</h4>
+      </div>
+
+      <div class="col-lg-4">
+        <img class="img-thumbnail" src="{% static 'img/pic3.png' %}" width="200" alt="">
+        <h4>3 - 利確・損益ラインを超えたら<br>売却シグナルを表示</h4>
+      </div>
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+
+  <div class="container">
+    <div class="row centered">
+      <div class="col-lg-6 col-lg-offset-3">
+        <form class="form-inline" role="form">
+          <button href="{% url 'account_signup' %}" class="btn btn-primary btn-lg">ユーザ登録する</button>
+        </form>
+      </div>
+      <div class="col-lg-3"></div>
+    </div>
+    <!-- /row -->
+    <hr>
+  </div>
+  <!-- /container -->
+
+  <div id="copyrights">
+    <div class="container">
+      <p>
+        &copy; Copyrights <strong>PL judge</strong>. All Rights Reserved
+      </p>
+      <div class="credits">
+        <!--
+          You are NOT allowed to delete the credit link to TemplateMag with free version.
+          You can delete the credit link only if you bought the pro version.
+          Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/pljudge-bootstrap-app-landing-page-template/
+          Licensing information: https://templatemag.com/license/
+        -->
+        Created with template by <a href="https://templatemag.com/">TemplateMag</a>
+      </div>
+    </div>
+  </div>
+  <!-- / copyrights -->
+
+  <!-- JavaScript Libraries -->
+  <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'lib/php-mail-form/validate.js' %}"></script>
+  <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+{% endblock content %}

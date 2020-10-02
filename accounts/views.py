@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -15,3 +16,8 @@ class SignupView(CreateView):
         valid = super().form_valid(form)
         login(self.request, self.object)
         return valid
+=======
+from django.shortcuts import render
+
+# Create your views here.
+>>>>>>> tmp

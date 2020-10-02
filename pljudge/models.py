@@ -49,10 +49,10 @@ class Portfolio(models.Model):
     investor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ticker = models.CharField(verbose_name='ティッカー', max_length=10)
     unit = models.IntegerField(verbose_name='保有数量', blank=True, null=True, default=0)
-    price = models.DecimalField(verbose_name='現在価格', max_digits=10, decimal_places=4, blank=True, null=True, default=0.00)
-    avg_price = models.DecimalField(verbose_name='平均取得単価', max_digits=10, decimal_places=4, blank=True, null=True, default=0.00)
-    upper_price = models.DecimalField(verbose_name='利確ライン', max_digits=10, decimal_places=4, blank=True, null=True, default=0.00)
-    lower_price = models.DecimalField(verbose_name='損切りライン', max_digits=10, decimal_places=4, blank=True, null=True, default=0.00)
+    price = models.DecimalField(verbose_name='現在価格', max_digits=10, decimal_places=2, blank=True, null=True, default=0.00)
+    avg_price = models.DecimalField(verbose_name='平均取得単価', max_digits=10, decimal_places=2, blank=True, null=True, default=0.00)
+    upper_price = models.DecimalField(verbose_name='利確ライン', max_digits=10, decimal_places=2, blank=True, null=True, default=0.00)
+    lower_price = models.DecimalField(verbose_name='損切りライン', max_digits=10, decimal_places=2, blank=True, null=True, default=0.00)
     
     def __str__(self): 
         return str(self.ticker)  # Portfolio を呼び出されたら ticker を返す

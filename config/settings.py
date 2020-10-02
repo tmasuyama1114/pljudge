@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'debug_toolbar',
     'accounts.apps.AccountsConfig',
-    'moneybelieve.apps.MoneybelieveConfig',
+    'pljudge.apps.pljudgeConfig',
 ]
 
 MIDDLEWARE = [

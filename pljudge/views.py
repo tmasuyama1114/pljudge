@@ -41,7 +41,7 @@ def get_price(ticker):  # ticker から 現在価格 を得るための関数
 ##############
 
 class Index(TemplateView):
-    template_name = 'moneybelieve/index.html'
+    template_name = 'pljudge/index.html'
 
 #######################################
 # ユーザが登録するポートフォリオに関する処理 #
@@ -49,11 +49,11 @@ class Index(TemplateView):
 
 class PortfolioCreate(CreateView): # PortFolio 登録画面
     # 使うためテンプレートの指定
-    template_name = 'moneybelieve/portfolio_create.html'
+    template_name = 'pljudge/portfolio_create.html'
     # 使うformクラスの指定
     form_class = PortfolioForm
     # 成功時に飛ぶURLの指定
-    success_url = reverse_lazy('moneybelieve:portfolio_list') # 登録成功時のリダイレクト先
+    success_url = reverse_lazy('pljudge:portfolio_list') # 登録成功時のリダイレクト先
 
     # 入力に問題がない場合現在ログインしているアカウントを投稿者として登録するための処理
     def form_valid(self, form):
@@ -62,13 +62,13 @@ class PortfolioCreate(CreateView): # PortFolio 登録画面
 
 class PortfolioUpdate(UpdateView):
     # https://noumenon-th.net/programming/2019/11/19/django-updateview/
-    template_name = 'moneybelieve/portfolio_update.html'
+    template_name = 'pljudge/portfolio_update.html'
     model = Portfolio
     fields = ['ticker', 'unit', 'avg_price', 'upper_price', 'lower_price']
 
     def get_success_url(self):
-        return reverse('moneybelieve:portfolio_list')
-    # success_url = reverse_lazy('moneybelieve:portfolio_list') # アップデート成功時のリダイレクト先
+        return reverse('pljudge:portfolio_list')
+    # success_url = reverse_lazy('pljudge:portfolio_list') # アップデート成功時のリダイレクト先
     
     # 入力に問題がない場合現在ログインしているアカウントを投稿者として登録するための処理
     def get_form(self):
@@ -78,7 +78,17 @@ class PortfolioUpdate(UpdateView):
 
 class PortfolioListView(LoginRequiredMixin, ListView):
     model = Portfolio
-    template_name = "moneybelive/portfolio_list.html"
+    template_name = "pljudge/portfolio_list.html"
+    
+    def get_queryset(self):
+        # https://qiita.com/uenosy/items/54136aff0f6373957d22
+        id = self.request.user.id
+        portfolio = Portfolio.objects.filter(investor_id=id)
+        return Portfolio.objects.filter(investor_id=id)
+
+class PortfolioListDetailView(LoginRequiredMixin, ListView):
+    model = Portfolio
+    template_name = "pljudge/portfolio_list_detail.html"
     
     def get_queryset(self):
         # https://qiita.com/uenosy/items/54136aff0f6373957d22
@@ -89,5 +99,5 @@ class PortfolioListView(LoginRequiredMixin, ListView):
 class PortfolioDelete(DeleteView):
     # https://noumenon-th.net/programming/2019/11/20/django-deleteview/
     model = Portfolio
-    template_name = "moneybelieve/portfolio_delete.html"
-    success_url = reverse_lazy('moneybelieve:portfolio_list')
+    template_name = "pljudge/portfolio_delete.html"
+    success_url = reverse_lazy('pljudge:portfolio_list')

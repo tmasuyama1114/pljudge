@@ -7,7 +7,7 @@ from django.urls import reverse
 from unittest.mock import patch
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from moneybelieve.models import Portfolio
+from pljudge.models import Portfolio
 
 class TestSignUp(TestCase):
     def setUp(self):
@@ -95,5 +95,5 @@ class TestPortfolio(TestCase):
         )
 
         # response = self.client.post(
-        #     reverse("moneybelieve:index"), post_data
+        #     reverse("pljudge:index"), post_data
         # )

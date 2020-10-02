@@ -10,7 +10,7 @@ from django.urls import reverse_lazy # TemplateView でページ遷移先を指�
 from .models import Company, Fstatement
 
 class IndexTemplateView(TemplateView):
-    template_name = 'moneybelieve/index.html'
+    template_name = 'pljudge/index.html'
 
 ################
 # CSV(Compnay) #
@@ -21,13 +21,13 @@ from django.views import generic
 from .forms import CSVUploadForm
 
 class CompanyImport(generic.FormView):
-    template_name = 'moneybelieve/import.html'
+    template_name = 'pljudge/import.html'
     success_url = reverse_lazy('mobeybelieve:index')
     form_class = CompanyCSVUploadForm
 
     def form_valid(self, form):
         form.save()
-        return redirect('moneybelieve:index')
+        return redirect('pljudge:index')
 
 def company_export(request):
     response = HttpResponse(content_type='text/csv')
@@ -66,7 +66,7 @@ def get_company_data(symbol): # symbol からProfileを得るための関数
 # Company 一覧
 class CompanyList(generic.ListView):
     model = Company
-    template_name = 'moneybelieve/company_list.html'
+    template_name = 'pljudge/company_list.html'
     paginate_by = 10
     
     # データを取得するときに行う処理を記述。シンボル名順で並び替え。
@@ -99,7 +99,7 @@ class CompanyProfile(ListView):
             except:
                 pass
         return Company.objects.all()[:1]
-    template_name = 'moneybelieve/index.html'
+    template_name = 'pljudge/index.html'
 
 class CompanyFstatements(ListView):
-    template_name = 'moneybelieve/fstatements.html'
+    template_name = 'pljudge/fstatements.html'

@@ -1,22 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-<form action="" method="POST">
-  {{ form.non_field_errors }}
-  {% for field in form %}
-  <div class="field">
-    {{ field.label_tag }}
-    {{ field }}
-    {% if field.help_text %}
-    <span class="helptext">{{ field.help_text }}</span>
-    {% endif %}
-    {{ field.errors }}
-  </div>
-  {% endfor %}
-
-  <div class="field">
-    <button type="submit">送信</button>
-  </div>
-
-  {% csrf_token %}
-</form>
+<div class="container" style="margin-top: 50px"></div>
+  <form method="post" action="" class="form-group mt-100">
+    {% csrf_token %}
+    {% for item in form %}
+    <div class="form-group">
+      <label for="{{item.id_for_label}}">{{item.label}}</label>
+      <input type="{{item.field.widget.input_type}}" class="form-control" {% if item.field.required %}required{% endif %}
+        name="{{item.name}}" id="{{item.id_for_label}}">
+    </div>
+    {% endfor %}
+    <button type="submit" class="submit btn btn-primary">登録</button>
+    <input type="hidden" name="next" value="登録" />
+  </form>
+</div>
 {% endblock content %}

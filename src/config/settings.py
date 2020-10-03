@@ -1,5 +1,4 @@
 import os
-
 import environ  
 
 env = environ.Env()  
@@ -82,8 +81,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': env.get_value('MYSQL_DATABASE'),
+        'USER': env.get_value('MYSQL_USER'),
+        'PASSWORD': env.get_value('MYSQL_PASSWORD'),
+        'HOST': 'db',
+        'POST': 3306
     }
 }
 

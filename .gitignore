@@ -107,3 +107,6 @@ venv.bak/
 # macOS + PyCharm
 .DS_Store
 .idea/
+
+# db
+mysql/

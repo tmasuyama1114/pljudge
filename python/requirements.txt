@@ -1,6 +1,6 @@
-Django~=2.1
-Django==2.2.5
 Django==2.2.14
+uwsgi==2.0.17
+mysqlclient
 django-allauth==0.40.0
 django-environ
 django-debug-toolbar

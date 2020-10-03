@@ -9,6 +9,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('accounts/', include('allauth.urls')),
     path('moneybelieve/', include('moneybelieve.urls')),
+    path('pljudge/', include('pljudge.urls')),
 ]
 
 if settings.DEBUG:

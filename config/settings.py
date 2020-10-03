@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'accounts.apps.AccountsConfig',
     'moneybelieve.apps.MoneybelieveConfig',
+    'pljudge.apps.PljudgeConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-from django.contrib.auth.models import AbstractUser
-=======
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -38,16 +35,11 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self._create_user(email, password, **extra_fields)
->>>>>>> tmp
 
 
 class CustomUser(AbstractUser):
     """拡張ユーザーモデル"""
 
-<<<<<<< HEAD
-    class Meta:
-        db_table = 'custom_user'
-=======
     class Meta(object):
         db_table = 'custom_user'
 
@@ -67,4 +59,3 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
->>>>>>> tmp

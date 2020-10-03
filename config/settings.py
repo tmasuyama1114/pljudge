@@ -34,9 +34,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-    'accounts.apps.AccountsConfig',
-=======
     'django.contrib.sites',
     'django.contrib.humanize', # 数値を3桁区切りで表示
     'allauth',
@@ -44,8 +41,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'debug_toolbar',
     'accounts.apps.AccountsConfig',
-    'pljudge.apps.pljudgeConfig',
->>>>>>> tmp
+    'moneybelieve.apps.MoneybelieveConfig',
 ]
 
 MIDDLEWARE = [
@@ -189,10 +185,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-<<<<<<< HEAD
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
-=======
 # 認証方式を「メールアドレスとパスワード」に変更
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 # ユーザー名は使用しない
@@ -208,7 +200,6 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
->>>>>>> tmp
 
 
 ##################

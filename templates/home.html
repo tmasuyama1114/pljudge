@@ -6,14 +6,8 @@
 <h2>ホーム</h2>
 {% if user.is_authenticated %}
 ようこそ {{ user.get_username }} さん
-<<<<<<< HEAD
-<p><a href="{% url 'logout' %}">ログアウト</a></p>
-{% else %}
-<p><a href="{% url 'login' %}">ログイン</a></p>
-=======
 <p><a href="{% url 'account_logout' %}">ログアウト</a></p>
 {% else %}
 <p><a href="{% url 'account_login' %}">ログイン</a></p>
->>>>>>> tmp
 {% endif %}
 {% endblock %}

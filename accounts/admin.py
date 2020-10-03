@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-
-from .models import CustomUser
-
-
-class CustomUserAdmin(UserAdmin):
-    pass
-=======
 from django import forms
 from django.contrib import admin
 from django.contrib.auth import password_validation
@@ -68,7 +58,6 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'is_staff')
     search_fields = ('first_name', 'last_name', 'email')
     ordering = ('email',)
->>>>>>> tmp
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

@@ -2,7 +2,7 @@ import os
 import environ  
 
 env = environ.Env()  
-env.read_env('.env')  
+env.read_env(os.path.join(BASE_DIR, '.env')  
 ###############
 # Build paths #
 ###############
@@ -177,9 +177,15 @@ LOGGING = {
 # Static files #
 ################
 
+# need
+# sudo mkdir -p /var/www/mysite
+# sudo chown webapp:www-data /var/www/mysite
+
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+STATIC_ROOT = '/var/www/{}/static'.format(PROJECT_NAME)
 
 
 ##################

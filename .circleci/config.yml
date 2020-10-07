@@ -15,7 +15,7 @@ jobs:
             echo MYSQL_PASSWORD=${MYSQL_PASSWORD} >> .env
             echo DEBUG=${DEBUG} > src/.env
             echo SECRET_KEY=${SECRET_KEY} >> src/.env
-            echo API_KEY=${API_KEY} >> src/.env
+            echo APIKEY=${APIKEY} >> src/.env
       - run:
           name: filecheck
           command: ls -a

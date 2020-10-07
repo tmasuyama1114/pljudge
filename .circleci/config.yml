@@ -20,7 +20,7 @@ jobs:
           name: filecheck
           command: ls -a
       - run:
-          name: filecheck
+          name: filecheck in src
           command: ls src -a
       - run:
           name: docker-compose up

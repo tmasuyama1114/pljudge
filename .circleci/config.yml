@@ -20,9 +20,6 @@ jobs:
           name: filecheck
           command: ls -a
       - run:
-          name: tree
-          command: yum install tree -y %% tree
-      - run:
           name: docker-compose up
           command: docker-compose up -d
       - run:

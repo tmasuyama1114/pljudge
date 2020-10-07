@@ -8,14 +8,19 @@ jobs:
 # Djangoのテストを実行
       - checkout
       - run:
+          name: make env file
           command: |
+            echo DEBUG=${DEBUG} > .env
+            echo SECRET_KEY=${SECRET_KEY} >> .env
+            echo APIKEY=${APIKEY} >> .env
             echo MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} > .env
             echo MYSQL_DATABASE=${MYSQL_DATABASE} >> .env
             echo MYSQL_USER=${MYSQL_USER} >> .env
             echo MYSQL_PASSWORD=${MYSQL_PASSWORD} >> .env
-            echo DEBUG=${DEBUG} > src/.env
-            echo SECRET_KEY=${SECRET_KEY} >> src/.env
-            echo APIKEY=${APIKEY} >> src/.env
+      - run:
+          name: cp env file to src directory
+          command: cp .env src/.env
+            
       - run:
           name: filecheck
           command: ls -a

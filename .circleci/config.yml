@@ -20,16 +20,21 @@ jobs:
       - run:
           name: cp env file to src directory
           command: cp .env src/.env
-            
       - run:
-          name: filecheck
+          name: check file list in project directory
           command: ls -a
       - run:
-          name: filecheck in src
+          name: check file list in src directory
           command: ls src -a
       - run:
+          name: check .env in project directory
+          command: cat .env
+      - run:
+          name: check src/.env in project directory
+          command: cat src/.env
+      - run:
           name: docker-compose up
-          command: docker-compose up -d
+          command: docker-compose up -dacss
       - run:
           name: sleep for launch db to migrate at Django
           command: sleep 20

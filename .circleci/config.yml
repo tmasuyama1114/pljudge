@@ -9,19 +9,19 @@ jobs:
       - checkout
       - run:
           command: |
-            echo DEBUG=${DEBUG} > ~/.env
-            echo SECRET_KEY=${SECRET_KEY} > ~/.env
-            echo MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} > ~/.env
-            echo MYSQL_DATABASE=${MYSQL_DATABASE} > ~/.env
+            echo DEBUG=${DEBUG} > .env
+            echo SECRET_KEY=${SECRET_KEY} > .env
+            echo MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} > .env
+            echo MYSQL_DATABASE=${MYSQL_DATABASE} > .env
             echo MYSQL_USER=${MYSQL_USER} > ~/.env
-            echo MYSQL_PASSWORD=${MYSQL_PASSWORD} > ~/.env
-            echo API_KEY=${API_KEY} > ~/.env
+            echo MYSQL_PASSWORD=${MYSQL_PASSWORD} > .env
+            echo API_KEY=${API_KEY} > .env
       - run:
           name: filecheck
           command: ls -a
       - run:
           name: tree
-          command: tree
+          command: yum install tree -y %% tree
       - run:
           name: docker-compose up
           command: docker-compose up -d

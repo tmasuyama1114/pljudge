@@ -18,7 +18,10 @@ jobs:
             echo API_KEY=${API_KEY} > ~/.env
       - run:
           name: filecheck
-          command: ls
+          command: ls -a
+      - run:
+          name: tree
+          command: tree
       - run:
           name: docker-compose up
           command: docker-compose up -d

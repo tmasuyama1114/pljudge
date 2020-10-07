@@ -17,6 +17,9 @@ jobs:
             echo MYSQL_PASSWORD=${MYSQL_PASSWORD} > ~/.env
             echo API_KEY=${API_KEY} > ~/.env
       - run:
+          name: filecheck
+          command: ls
+      - run:
           name: docker-compose up
           command: docker-compose up -d
       - run:

@@ -13,7 +13,7 @@ jobs:
             echo DEBUG=${DEBUG} > .env
             echo SECRET_KEY=${SECRET_KEY} >> .env
             echo APIKEY=${APIKEY} >> .env
-            echo MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} > .env
+            echo MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} >> .env
             echo MYSQL_DATABASE=${MYSQL_DATABASE} >> .env
             echo MYSQL_USER=${MYSQL_USER} >> .env
             echo MYSQL_PASSWORD=${MYSQL_PASSWORD} >> .env
@@ -34,7 +34,7 @@ jobs:
           command: cat src/.env
       - run:
           name: docker-compose up
-          command: docker-compose up -dacss
+          command: docker-compose up -d
       - run:
           name: sleep for launch db to migrate at Django
           command: sleep 20

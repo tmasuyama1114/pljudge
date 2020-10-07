@@ -7,7 +7,14 @@ jobs:
     steps:
 # Djangoのテストを実行
       - checkout
-      - run: echo ${ENV} > ~/.env
+      - environment:
+          DEBUG: ${DEBUG}
+          SECRET_KEY: ${SECRET_KEY}
+          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+          MYSQL_DATABASE: ${MYSQL_DATABASE}
+          MYSQL_USER: ${MYSQL_USER}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+          API_KEY: ${API_KEY}
       - run:
           name: docker-compose up
           command: docker-compose up -d

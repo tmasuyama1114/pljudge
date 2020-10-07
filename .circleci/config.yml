@@ -7,14 +7,15 @@ jobs:
     steps:
 # Djangoのテストを実行
       - checkout
-      - environment:
-          DEBUG: ${DEBUG}
-          SECRET_KEY: ${SECRET_KEY}
-          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-          MYSQL_DATABASE: ${MYSQL_DATABASE}
-          MYSQL_USER: ${MYSQL_USER}
-          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-          API_KEY: ${API_KEY}
+      - run:
+          command: |
+            echo DEBUG=${DEBUG} > ~/.env
+            echo SECRET_KEY=${SECRET_KEY} > ~/.env
+            echo MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} > ~/.env
+            echo MYSQL_DATABASE=${MYSQL_DATABASE} > ~/.env
+            echo MYSQL_USER=${MYSQL_USER} > ~/.env
+            echo MYSQL_PASSWORD=${MYSQL_PASSWORD} > ~/.env
+            echo API_KEY=${API_KEY} > ~/.env
       - run:
           name: docker-compose up
           command: docker-compose up -d
@@ -37,7 +38,7 @@ jobs:
     steps:
       - checkout
       # CircleCIに登録した秘密鍵を呼び出す。
-      - add_ssh_keys:
+      - add_ssh_keys
       - run: ssh ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} 'cd pljudge && git pull origin main && docker-compose run python ./manage.py migrate'
 
 # テストが成功した場合のみ、deployを実行するようにします。

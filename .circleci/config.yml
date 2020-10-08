@@ -33,17 +33,12 @@ jobs:
           name: check src/.env in project directory
           command: cat src/.env
       - run:
-          name: docker-compose build
-          command: docker-compose build --no-cache
-      - run:
-          name: sleep for build
-          command: sleep 180
-      - run:
-          name: docker-compose up
-          command: docker-compose up -d
+          name: docker-compose up and build
+          # command: docker-compose up -d
+          command: docker-compose up --build -d
       - run:
           name: sleep for launch db to migrate at Django
-          command: sleep 180
+          command: sleep 10
       - run:
           name: migrate
           command: docker-compose run python ./manage.py migrate

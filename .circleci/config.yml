@@ -38,7 +38,7 @@ jobs:
           command: docker-compose up --build -d
       - run:
           name: sleep for launch db to migrate at Django
-          command: sleep 10
+          command: sleep 300
       - run:
           name: docker ps
           command: docker ps

@@ -40,6 +40,9 @@ jobs:
           name: sleep for launch db to migrate at Django
           command: sleep 10
       - run:
+          name: docker ps
+          command: docker ps
+      - run:
           name: migrate
           command: docker-compose run python ./manage.py migrate
       - run:

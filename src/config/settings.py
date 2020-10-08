@@ -87,7 +87,8 @@ DATABASES = {
         'NAME': env.get_value('MYSQL_DATABASE'),
         'USER': env.get_value('MYSQL_USER'),
         'PASSWORD': env.get_value('MYSQL_PASSWORD'),
-        'HOST': 'db',
+        # 'HOST': 'db',
+        'HOST': '127.0.0.1',
         'POST': 3306
     }
 }

@@ -42,8 +42,8 @@ jobs:
       - run:
           name: docker ps
           command: docker ps
-      - run:
-          name: migrate
+      # - run:
+          # name: migrate
           # command: docker-compose run python ./manage.py migrate
       - run:
           name: test

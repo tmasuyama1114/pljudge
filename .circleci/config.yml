@@ -17,6 +17,7 @@ jobs:
             echo MYSQL_DATABASE=${MYSQL_DATABASE} >> .env
             echo MYSQL_USER=${MYSQL_USER} >> .env
             echo MYSQL_PASSWORD=${MYSQL_PASSWORD} >> .env
+            echo MYSQL_HOST=${MYSQL_HOST} >> .env
       - run:
           name: cp env file to src directory
           command: cp .env src/.env

@@ -15,3 +15,6 @@ SECRET_KEY=xxxxxxxxxxx
 MYSQL_DATABASE=xxxxxx
 MYSQL_USER=xxxx
 MYSQL_PASSWORD=xxxx
+MYSQL_HOST=xxxx
+
+API_KEY=xxxxxx

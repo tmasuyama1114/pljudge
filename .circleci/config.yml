@@ -34,17 +34,19 @@ jobs:
           command: cat src/.env
       - run:
           name: docker-compose up
-          # command: docker-compose up -d
           command: docker-compose up -d
       - run:
           name: sleep for launch db to migrate at Django
-          command: sleep 300
+          command: sleep 100
       - run:
           name: docker ps
           command: docker ps
-      # - run:
-          # name: migrate
-          # command: docker-compose run python ./manage.py migrate
+      - run:
+          name: collectstatic
+          command: docker-compose run python ./manage.py collectstatic
+      - run:
+          name: migrate
+          command: docker-compose run python ./manage.py migrate
       - run:
           name: test
           command: docker-compose run python ./manage.py test

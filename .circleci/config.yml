@@ -28,12 +28,6 @@ jobs:
           name: check file list in src directory
           command: ls src -a
       - run:
-          name: check .env in project directory
-          command: cat .env
-      - run:
-          name: check src/.env in project directory
-          command: cat src/.env
-      - run:
           name: docker-compose up
           command: docker-compose up -d
       # - run:

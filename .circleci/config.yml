@@ -56,7 +56,7 @@ jobs:
       - checkout
       # CircleCIに登録した秘密鍵を呼び出す。
       - add_ssh_keys
-      - run: ssh ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} 'cd pljudge && git pull origin main && docker-compose run python ./manage.py migrate'
+      - run: ssh ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} 'cd pljudge && git pull origin main && docker-compose restart && docker-compose run python ./manage.py migrate'
 
 # テストが成功した場合のみ、deployを実行するようにします。
 workflows:

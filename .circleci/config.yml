@@ -10,17 +10,14 @@ jobs:
       - run:
           name: make env file
           command: |
-            echo DEBUG=${DEBUG} > .env
-            echo SECRET_KEY=${SECRET_KEY} >> .env
-            echo APIKEY=${APIKEY} >> .env
-            echo MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} >> .env
-            echo MYSQL_DATABASE=${MYSQL_DATABASE} >> .env
-            echo MYSQL_USER=${MYSQL_USER} >> .env
-            echo MYSQL_PASSWORD=${MYSQL_PASSWORD} >> .env
-            echo MYSQL_HOST=${MYSQL_HOST} >> .env
-      - run:
-          name: echo test
-          command: echo MYSQL_HOST=${MYSQL_HOST}
+            echo "DEBUG=${DEBUG}" > .env
+            echo "SECRET_KEY=${SECRET_KEY}" >> .env
+            echo "APIKEY=${APIKEY}" >> .env
+            echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" >> .env
+            echo "MYSQL_DATABASE=${MYSQL_DATABASE}" >> .env
+            echo "MYSQL_USER=${MYSQL_USER}" >> .env
+            echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> .env
+            echo "MYSQL_HOST=${MYSQL_HOST}" >> .env
       - run:
           name: cp env file to src directory
           command: cp .env src/.env

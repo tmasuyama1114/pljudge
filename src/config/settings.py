@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'django.contrib.humanize', # 数値を3桁区切りで表示
     'allauth',
     'allauth.account',
     'allauth.socialaccount',

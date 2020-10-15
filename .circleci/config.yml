@@ -19,6 +19,9 @@ jobs:
             echo MYSQL_PASSWORD=${MYSQL_PASSWORD} >> .env
             echo MYSQL_HOST=${MYSQL_HOST} >> .env
       - run:
+          name: echo test
+          command: echo MYSQL_HOST=${MYSQL_HOST}
+      - run:
           name: cp env file to src directory
           command: cp .env src/.env
       - run:
@@ -36,9 +39,9 @@ jobs:
       - run:
           name: docker-compose up
           command: docker-compose up -d
-      - run:
-          name: sleep for launch db to migrate at Django
-          command: sleep 100
+      # - run:
+          # name: sleep for launch db to migrate at Django
+          # command: sleep 100
       - run:
           name: docker ps
           command: docker ps

@@ -12,22 +12,22 @@ services:
       depends_on:
         - python
 
-  # db:
-  #     image: mysql:5.7
-  #     container_name: db
-  #     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-  #     ports:
-  #       - "3306:3306"
-  #     env_file: ./.env
-  #     environment:
-  #       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-  #       MYSQL_DATABASE: $MYSQL_DATABASE
-  #       MYSQL_USER: $MYSQL_USER
-  #       MYSQL_PASSWORD: $MYSQL_PASSWORD
-  #       TZ: 'Asia/Tokyo'
-  #     volumes:
-  #       - ./mysql:/var/lib/mysql
-  #       - ./sql:/docker-entrypoint-initdb.d
+  db:
+      image: mysql:5.7
+      container_name: db
+      command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      ports:
+        - "3306:3306"
+      env_file: ./.env
+      environment:
+        MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+        MYSQL_DATABASE: $MYSQL_DATABASE
+        MYSQL_USER: $MYSQL_USER
+        MYSQL_PASSWORD: $MYSQL_PASSWORD
+        TZ: 'Asia/Tokyo'
+      volumes:
+        - ./mysql:/var/lib/mysql
+        - ./sql:/docker-entrypoint-initdb.d
 
   python:
       build: ./python
@@ -38,5 +38,5 @@ services:
         - ./static:/static
       expose:
         - "8001"
-      # depends_on:
-        # - db
+      depends_on:
+        - db

@@ -5,6 +5,8 @@ docker-compose run python ./manage.py makemigrations
 
 docker-compose run python ./manage.py migrate
 
+docker-compose run python ./manage.py test
+
 docker-compose run python ./manage.py createsuperuser
 
 docker-compose up -d

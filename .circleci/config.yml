@@ -1,70 +1,22 @@
-# circleCIのバージョン指定
-version: 2
-jobs:
-  build:
-    machine:
-      image: circleci/classic:edge
-    steps:
-# Djangoのテストを実行
-      - checkout
-      - run:
-          name: make env file
-          command: |
-            echo DEBUG=${DEBUG} > src/.env
-            echo SECRET_KEY=${SECRET_KEY} >> src/.env
-            echo APIKEY=${APIKEY} >> src/.env
-            echo MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} >> src/.env
-            echo MYSQL_DATABASE=${MYSQL_DATABASE} >> src/.env
-            echo MYSQL_USER=${MYSQL_USER} >> src/.env
-            echo MYSQL_PASSWORD=${MYSQL_PASSWORD} >> src/.env
-            echo MYSQL_HOST=${MYSQL_HOST} >> src/.env
-      - run:
-          name: check file list in project directory
-          command: ls -a
-      - run:
-          name: check file list in src directory
-          command: ls src -a
-      - run:
-          name: docker-compose up
-          command: docker-compose up -d
-      - run:
-          name: sleep for launch db to migrate at Django
-          command: sleep 60
-      - run:
-          name: docker ps
-          command: docker ps
-      - run:
-          name: collectstatic
-          command: docker-compose run python ./manage.py collectstatic
-      - run:
-          name: migrate
-          command: docker-compose run python ./manage.py migrate
-      - run:
-          name: test
-          command: docker-compose run python ./manage.py test
-      - run:
-          name: docker-compose down
-          command: docker-compose down
-# EC2にSSH接続し、デプロイを実行
-  deploy:
-    machine:
-      image: circleci/classic:edge
-    steps:
-      - checkout
-      # CircleCIに登録した秘密鍵を呼び出す。
-      - add_ssh_keys
-      - run: ssh ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} 'cd pljudge && git pull origin main && docker-compose restart && docker-compose run python ./manage.py migrate'
+version: 2.1
 
-# テストが成功した場合のみ、deployを実行するようにします。
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  build-and-test:
+    executor: python/default
+    steps:
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - run:
+          command: ./manage.py test
+          name: Test
+
 workflows:
-  version: 2
-  build_and_deploy:
+  main:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          # mainブランチがpushされた場合のみdeployするようにする。
-          filters:
-            branches:
-              only: main
+      - build-and-test
+

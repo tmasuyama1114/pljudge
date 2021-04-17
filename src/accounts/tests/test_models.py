@@ -25,25 +25,25 @@ class TestSignUp(TestCase):
             response.context['form'], SignupForm
         )
 
-    # def test_user_signup_page_submission_works(self):
-    #     post_data = self.post_user_data 
-    #     response = self.client.post(
-    #         reverse("account_signup"), post_data
-    #     )
+    def test_user_signup_page_submission_works(self):
+        post_data = self.post_user_data 
+        response = self.client.post(
+            reverse("account_signup"), post_data
+        )
 
-    #     #homeへリダイレクト
-    #     self.assertEqual(response.status_code, 200)
+        #homeへリダイレクト
+        self.assertEqual(response.status_code, 200)
 
-    #     #ユーザが追加されたか確認
-    #     self.assertTrue(
-    #         User.objects.filter(
-    #             email=self.post_user_data['email']
-    #         ).exists()
-    #     )
-    #     #ログイン状態か
-    #     self.assertTrue(
-    #         auth.get_user(self.client).is_authenticated
-    #     )
+        #ユーザが追加されたか確認
+        self.assertTrue(
+            User.objects.filter(
+                email=self.post_user_data['email']
+            ).exists()
+        )
+        #ログイン状態か
+        self.assertTrue(
+            auth.get_user(self.client).is_authenticated
+        )
 
     def test_user_login_page_loads_correctly(self):
         response = self.client.get(reverse('account_login'))
